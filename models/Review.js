@@ -9,6 +9,10 @@ const reviewSchema= mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Restaurant"
     },
+    orderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Order"
+    },
     rating: {
         type: Number,
         default: 4,

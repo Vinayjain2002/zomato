@@ -62,8 +62,20 @@ const menuCategoryType = new GraphQLInputObjectType({
   },
 });
 
+//auth Model
+const AuthType = new GraphQLObjectType({
+  name: "Auth",
+  fields: () => ({
+    id: { type: GraphQLID },
+    accessToken: { type: GraphQLString },
+    refreshToken: { type: GraphQLString },
+    accesstokenExp: { type: GraphQLString },
+    refreshtokenExp: { type: GraphQLString },
+  }),
+});
+
 // user Model
-const userType = new GraphQLObjectType({
+const UserType = new GraphQLObjectType({
   name: "User",
   fields: () => ({
     id: { type: GraphQLID },
@@ -72,18 +84,23 @@ const userType = new GraphQLObjectType({
     password: { type: new GraphQLNonNull(GraphQLString) },
     mobileNo: { type: new GraphQLNonNull(GraphQLInt) },
     image: { type: GraphQLString },
+    accessToken: { type: GraphQLString },
+    refreshToken: { type: GraphQLString },
+    accessTokenExp: { type: GraphQLDate },
+    refreshTokenExp: { type: GraphQLDate },
     role: { type: roleEnumType },
     address: { type: new GraphQLList(addressType) },
   }),
 });
 
 // review Model
-const reviewType = new GraphQLObjectType({
+const ReviewType = new GraphQLObjectType({
   name: "Review",
   fields: () => ({
     id: { type: GraphQLID },
     userId: { type: new GraphQLNonNull(GraphQLID) }, // Reference to User type
     restaurantId: { type: new GraphQLNonNull(GraphQLID) }, // Reference to Restaurant type
+    orderId: {type: GraphQLID},
     rating: {
       type: new GraphQLNonNull(GraphQLInt),
       description: "Rating must be between 1 and 5",
@@ -93,7 +110,7 @@ const reviewType = new GraphQLObjectType({
 });
 
 // restaurant model
-const restaurantType = new GraphQLObjectType({
+const RestaurantType = new GraphQLObjectType({
   name: "Restaurant",
   fields: () => ({
     id: { type: GraphQLID },
@@ -110,9 +127,10 @@ const restaurantType = new GraphQLObjectType({
 });
 
 // order Model
-const orderType = new GraphQLObjectType({
+const OrderType = new GraphQLObjectType({
   name: "Order",
   fields: () => ({
+    id: {type: new GraphQLNonNull(GraphQLID)},
     userId: { type: new GraphQLNonNull(GraphQLID) },
     restaurantId: { type: new GraphQLNonNull(GraphQLID) },
     deliveryPrtner: { type: new GraphQLNonNull(GraphQLID) },
@@ -138,10 +156,31 @@ const menuType = new GraphQLInputObjectType({
   }),
 });
 
+const DeliveryPartnerType= new GraphQLInputObjectType({
+  name: "DeliveryPartner",
+  fields: ()=>(
+    {
+      name: {type: new GraphQLNonNull(GraphQLString)},
+      userId: {type: new GraphQLNonNull(GraphQLID)},
+      vehicleNumber: {
+        type: new GraphQLNonNull(GraphQLInt)
+      },
+      photo: {
+        type: new GraphQLNonNull(GraphQLString)
+      },
+      rating: {
+        type: GraphQLInt
+      }
+    }
+  )
+})
+
 module.exports = {
-  userType,
+  AuthType,
+  UserType,
   menuType,
-  orderType,
-  restaurantType,
-  reviewType,
+  OrderType,
+  RestaurantType,
+  ReviewType,
+  DeliveryPartnerType
 };

@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 
 const deliverySchema= mongoose.Schema({
+
     name: {
         type:String,
         required: true
     },
-    phoneNo: {
-        type: Number,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required: true
     },
     photo: {
