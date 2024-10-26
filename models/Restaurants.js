@@ -42,7 +42,8 @@ const restaurantSchema = new mongoose.Schema({
   },
   ownerId: {
     type:mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    required: true
   }
 });
 

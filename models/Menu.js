@@ -13,7 +13,8 @@ const menuSchema= mongoose.Schema({
         type: String
     },
     price: {
-        type:Number
+        type:Number,
+        required: true
     },
     category: {
         type:String,

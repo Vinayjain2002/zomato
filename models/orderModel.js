@@ -36,7 +36,7 @@ const orderSchema= new mongoose.Schema({
     paymentStatus: {
         type:String,
         required: true,
-        enum: ["Paid", "NotPaid"]
+        enum: ["paid", "notpaid"]
     }
 },{timestamps: true});
 
